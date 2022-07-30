@@ -45,7 +45,7 @@ async def push(r: Report):
     for id in send_to:
         await bot.send_msg(user_id=id, message=msg)
 
-    logger.success(
+    logger.info(
         'Report pushed:'
         f' title={repr(r.title)},'
         f' message={repr(r.content)},'
@@ -59,3 +59,4 @@ async def startup():
         logger.warning('You are in production environment without setting a token, everyone can access your webhook')
 
     driver.server_app.mount(config.report_route, app)
+    logger.info(f'Mounted to {config.report_route}')
