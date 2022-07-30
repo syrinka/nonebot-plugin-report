@@ -28,7 +28,7 @@ app = FastAPI()
 @app.post('/', status_code=200)
 async def push(r: Report):
     if config.report_token is not None \
-    and r.token != config.reporttoken:
+    and r.token != config.report_token:
         raise HTTPException(status.HTTP_403_FORBIDDEN)
 
     r.title = r.title or ''
