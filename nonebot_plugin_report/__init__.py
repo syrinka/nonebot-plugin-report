@@ -18,7 +18,7 @@ if not isinstance(driver, ReverseDriver) or not isinstance(driver.server_app, Fa
 
 class Report(BaseModel):
     token: Union[str, None]
-    title: Union[str, None] = None
+    title: str = ''
     content: str
     send_to: Union[str, List[str], None] = None
 
@@ -30,7 +30,7 @@ async def push(r: Report):
     if r.token is not None and r.token != config.token:
         raise HTTPException(status.HTTP_403_FORBIDDEN)
 
-    msg = f'[report] {r.title or ""}\n{r.content}'
+    msg = f'[report] {r.title}\n{r.content}'
     if r.send_to is None:
         send_to = config.superusers
     elif isinstance(r.send_to, str):
