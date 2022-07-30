@@ -42,10 +42,16 @@ async def push(r: Report):
     for id in send_to:
         await bot.send_msg(user_id=id, message=msg)
 
+    logger.success(
+        f'title={repr(r.title)}, '
+        f'message={repr(r.content)}, '
+        f'send_to={repr(r.send_to)}'
+    )
+
 
 @driver.on_startup
 async def startup():
     if config.token is None and config.environment == 'prod':
-        logger.warning('You are running in production env without setting token.')
+        logger.warning('You are in production environment without setting a token, everyone can access your webhook')
 
     driver.server_app.mount(config.report_route, app)
