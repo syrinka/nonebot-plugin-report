@@ -18,7 +18,7 @@ if not isinstance(driver, ReverseDriver) or not isinstance(driver.server_app, Fa
 
 class Report(BaseModel):
     token: Optional[str] = None
-    title: Optional[str] = ''
+    title: Optional[str] = None
     content: str
     send_to: Optional[Union[str, List[str]]] = None
 
@@ -29,6 +29,8 @@ app = FastAPI()
 async def push(r: Report):
     if config.token is not None and r.token != config.token:
         raise HTTPException(status.HTTP_403_FORBIDDEN)
+
+    r.title = r.title or ''
 
     msg = f'[report] {r.title}\n{r.content}'
     if r.send_to is None:
