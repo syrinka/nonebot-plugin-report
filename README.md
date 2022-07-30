@@ -5,3 +5,43 @@
 Push message to from anywhere to your bot through webhook.
 
 </div>
+
+----
+
+### 功能
+
+该插件提供了一个位于 `/report` 的 webhook，通过此路由可向 bot 推送消息，实现消息推送机器人的功能
+
+### 使用
+
+webhook template
+```json
+// POST /report
+{
+    "token": "your token here",
+    "title": "report title",
+    "content": "report content", // *required
+    "send_to": "send to"
+}
+```
+
+##### 字段
+
+`token`: 令牌，当与设置的 `REPORT_TOKEN` 相同时才会推送消息，否则返回 403
+
+`title`: 消息标题
+
+`content`: 消息内容，必需字段
+
+`send_to`: 推送对象。若为 `null` 则推送给所有超管；若为字符串则将其视为推送对象 user_id；若为字符串列表同上
+
+##### 配置
+
+`REPORT_TOKEN`: 令牌，若不设置则不会进行验证
+
+`REPORT_ROUTE`: 推送路由，默认为 `/report`，若出现路由冲突可以更换该值
+
+### 其它
+
+- 向 webhook 发送 POST 请求
+- 仅支持发送纯文本消息
