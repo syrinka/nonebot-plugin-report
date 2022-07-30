@@ -27,7 +27,8 @@ app = FastAPI()
 
 @app.post('/', status_code=200)
 async def push(r: Report):
-    if config.token is not None and r.token != config.token:
+    if config.report_token is not None \
+    and r.token != config.reporttoken:
         raise HTTPException(status.HTTP_403_FORBIDDEN)
 
     r.title = r.title or ''
@@ -54,7 +55,7 @@ async def push(r: Report):
 
 @driver.on_startup
 async def startup():
-    if not config.token and config.environment == 'prod':
+    if not config.report_token and config.environment == 'prod':
         logger.warning('You are in production environment without setting a token, everyone can access your webhook')
 
     driver.server_app.mount(config.report_route, app)
