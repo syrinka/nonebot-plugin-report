@@ -48,4 +48,4 @@ async def startup():
     if config.token is None and config.environment == 'prod':
         logger.warning('You are running in production env without setting token.')
 
-    driver.server_app.mount('/report', app)
+    driver.server_app.mount(config.report_route, app)

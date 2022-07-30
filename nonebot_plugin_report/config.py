@@ -3,7 +3,7 @@ from pydantic import BaseSettings, Extra
 
 
 class Config(BaseSettings, extra=Extra.ignore):
-    report_webhook_port: int = 8081
-    report_access_token: str = None
+    report_token: str = None
+    report_route: str = '/report'
     environment: str
     superusers: List[str]
