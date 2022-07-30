@@ -58,7 +58,7 @@ requests.post('http://127.0.0.1:8080/report', json=data)
 ##### curl
 
 ```bash
-curl -X POST \
+curl -L -X POST \
      -d '{"token": "...", "content": "..."}' \
      -H "Content-Type: application/json" \
      -- http://127.0.0.1:8080/report
