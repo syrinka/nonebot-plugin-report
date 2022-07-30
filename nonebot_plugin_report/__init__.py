@@ -43,9 +43,10 @@ async def push(r: Report):
         await bot.send_msg(user_id=id, message=msg)
 
     logger.success(
-        f'title={repr(r.title)}, '
-        f'message={repr(r.content)}, '
-        f'send_to={repr(r.send_to)}'
+        'Report pushed:'
+        f' title={repr(r.title)},'
+        f' message={repr(r.content)},'
+        f' send_to={repr(r.send_to)}'
     )
 
 
