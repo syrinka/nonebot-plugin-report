@@ -1,4 +1,4 @@
-from typing import Union, List
+from typing import Union, Optional, List
 
 from fastapi import FastAPI, status, HTTPException
 from pydantic import BaseModel
@@ -17,17 +17,17 @@ if not isinstance(driver, ReverseDriver) or not isinstance(driver.server_app, Fa
 
 
 class Report(BaseModel):
-    token: Union[str, None] = None
-    title: str = ''
+    token: Optional[str] = None
+    title: Optional[str] = ''
     content: str
-    send_to: Union[str, List[str], None] = None
+    send_to: Optional[Union[str, List[str]]] = None
 
 
 app = FastAPI()
 
 @app.post('/', status_code=200)
 async def push(r: Report):
-    if r.token is not None and r.token != config.token:
+    if config.token is not None and r.token != config.token:
         raise HTTPException(status.HTTP_403_FORBIDDEN)
 
     msg = f'[report] {r.title}\n{r.content}'
@@ -52,7 +52,7 @@ async def push(r: Report):
 
 @driver.on_startup
 async def startup():
-    if config.token is None and config.environment == 'prod':
+    if not config.token and config.environment == 'prod':
         logger.warning('You are in production environment without setting a token, everyone can access your webhook')
 
     driver.server_app.mount(config.report_route, app)
