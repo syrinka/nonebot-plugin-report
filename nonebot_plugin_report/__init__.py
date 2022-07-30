@@ -17,7 +17,7 @@ if not isinstance(driver, ReverseDriver) or not isinstance(driver.server_app, Fa
 
 
 class Report(BaseModel):
-    token: Union[str, None]
+    token: Union[str, None] = None
     title: str = ''
     content: str
     send_to: Union[str, List[str], None] = None
