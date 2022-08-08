@@ -25,7 +25,7 @@ class Report(BaseModel):
 
 app = FastAPI()
 
-@app.post('/', status_code=200)
+@app.post(config.report_route, status_code=200)
 async def push(r: Report):
     if config.report_token is not None \
     and r.token != config.report_token:
@@ -58,5 +58,5 @@ async def startup():
     if not config.report_token and config.environment == 'prod':
         logger.warning('You are in production environment without setting a token, everyone can access your webhook')
 
-    driver.server_app.mount(config.report_route, app)
+    driver.server_app.mount('/', app)
     logger.info(f'Mounted to {config.report_route}')
