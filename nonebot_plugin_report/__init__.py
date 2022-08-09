@@ -5,8 +5,16 @@ from pydantic import BaseModel
 from nonebot import get_driver, get_bot
 from nonebot.log import logger
 from nonebot.drivers import ReverseDriver
+from nonebot.plugin import PluginMetadata
 
 from .config import Config
+
+
+__plugin_meta__ = PluginMetadata(
+    name='推送钩子',
+    description='实现消息推送自由',
+    usage='详见项目 README.md'
+)
 
 
 driver = get_driver()
