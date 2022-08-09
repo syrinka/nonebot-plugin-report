@@ -10,11 +10,11 @@ Push message from anywhere to your bot through webhook.
 
 ### 功能
 
-该插件提供了一个位于 `/report` 的路由，通过此路由可向 bot 推送消息，实现消息推送机器人的功能
+该插件提供了一个位于 `/report` 的路由，通过此路由可直接向用户推送消息，实现消息推送机器人的功能
 
 ### 使用
 
-webhook template
+请求体示例
 ```json
 {
     "token": "your token here",
@@ -42,11 +42,6 @@ webhook template
 
 `REPORT_TEMPLATE`: 消息模板，支持 `title` 与 `content` 两个字段，default: `{title}\n{content}`
 
-### 其它
-
-- 应向路由发送 POST 请求
-- 仅支持发送纯文本消息
-
 ### 使用例
 
 ##### python
@@ -69,4 +64,3 @@ curl -L -X POST \
 ### todo
 
 - [x] 支持设置消息模板
-- [ ] 支持使用 GET 触发
