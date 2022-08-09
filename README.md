@@ -38,7 +38,9 @@ webhook template
 
 `REPORT_TOKEN`: 令牌，若不设置则不会进行验证，即所有人都可以触发 webhook
 
-`REPORT_ROUTE`: 路由，默认为 `/report`，若与其它路由冲突可以更换该值
+`REPORT_ROUTE`: 路由，若与其它路由冲突可以更换该值，default: `/report`
+
+`REPORT_TEMPLATE`: 消息模板，支持 `title` 与 `content` 两个字段，default: `{title}\n{content}`
 
 ### 其它
 
@@ -66,5 +68,5 @@ curl -L -X POST \
 
 ### todo
 
-- [ ] 支持设置消息模板
+- [x] 支持设置消息模板
 - [ ] 支持使用 GET 触发

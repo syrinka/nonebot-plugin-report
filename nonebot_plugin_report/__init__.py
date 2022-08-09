@@ -33,7 +33,7 @@ async def push(r: Report):
 
     r.title = r.title or ''
 
-    msg = f'[report] {r.title}\n{r.content}'
+    msg = config.report_template.format(**r)
     if r.send_to is None:
         send_to = config.superusers
     elif isinstance(r.send_to, str):
