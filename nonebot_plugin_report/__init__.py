@@ -29,6 +29,7 @@ class Report(BaseModel):
     title: Optional[str] = None
     content: str
     send_to: Optional[Union[str, List[str]]] = None
+    send_to_group: Optional[Union[str, List[str]]] = None
 
 
 app = FastAPI()
@@ -39,19 +40,31 @@ async def push(r: Report):
     and r.token != config.report_token:
         raise HTTPException(status.HTTP_403_FORBIDDEN)
 
-    r.title = r.title or ''
-
-    msg = config.report_template.format(title=r.title, content=r.content)
-    if r.send_to is None:
-        send_to = config.superusers
-    elif isinstance(r.send_to, str):
-        send_to = [r.send_to]
-    else:
-        send_to = r.send_to
-
+    msg = config.report_template.format(
+        title=r.title or '',
+        content=r.content
+    )
     bot = get_bot()
-    for id in send_to:
-        await bot.send_msg(user_id=id, message=msg)
+
+    if isinstance(r.send_to, str):
+        uids = [r.send_to]
+    elif isinstance(r.send_to, list):
+        uids = r.send_to
+    else:
+        uids = config.superusers
+
+    for uid in uids:
+        await bot.send_msg(user_id=uid, message=msg)
+
+    if isinstance(r.send_to_group, str):
+        gids = [r.send_to_group]
+    elif isinstance(r.send_to_group, list):
+        gids = r.send_to_group
+    else:
+        gids = []
+
+    for gid in gids:
+        await bot.send_msg(group_id=gid, message=msg)
 
     logger.info(
         'Report pushed:'
