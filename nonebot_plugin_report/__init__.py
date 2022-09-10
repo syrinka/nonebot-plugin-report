@@ -56,7 +56,7 @@ async def push(r: Report):
     logger.info(
         'Report pushed:'
         f' title={repr(r.title)},'
-        f' message={repr(r.content)},'
+        f' content={repr(r.content)},'
         f' send_to={repr(r.send_to)}'
     )
 
