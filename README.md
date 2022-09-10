@@ -32,7 +32,9 @@ Push message from anywhere to your bot through webhook.
 
 `content`: 消息内容，* 必需字段
 
-`send_to`: 推送对象。若为 `null` 则推送给所有超管；若为字符串则将其视为推送对象 user_id；若为字符串列表同上
+`send_to`: 推送用户。若为 `null` 则推送给所有超管；若为字符串则将其视为推送对象 user_id；若为字符串列表同上
+
+`send_to_group`: 推送群组，规则同 `send_to`。
 
 ##### 配置
 
