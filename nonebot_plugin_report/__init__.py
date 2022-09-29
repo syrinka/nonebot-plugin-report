@@ -54,7 +54,7 @@ async def push(r: Report):
         uids = config.superusers
 
     for uid in uids:
-        await bot.send_msg(user_id=uid, message=msg)
+        await bot.send_msg(user_id=uid, message=msg, message_type='private')
 
     if isinstance(r.send_to_group, str):
         gids = [r.send_to_group]
@@ -64,7 +64,7 @@ async def push(r: Report):
         gids = []
 
     for gid in gids:
-        await bot.send_msg(group_id=gid, message=msg)
+        await bot.send_msg(group_id=gid, message=msg, message_type='group')
 
     logger.info(
         'Report pushed:'
