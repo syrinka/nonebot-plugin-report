@@ -50,6 +50,8 @@ async def push(r: Report):
         uids = [r.send_to]
     elif isinstance(r.send_to, list):
         uids = r.send_to
+    elif r.send_to_group:
+        uids = []
     else:
         uids = config.superusers
 
