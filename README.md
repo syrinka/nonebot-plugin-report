@@ -26,23 +26,22 @@ Push message from anywhere to your bot through webhook.
 
 ##### 字段
 
-`token`: 令牌，当与设置的 `REPORT_TOKEN` 相同时才会推送消息，否则返回 403
-
-`title`: 消息标题
-
-`content`: 消息内容，* 必需字段
-
-`send_to`: 推送用户。若为 `null` 则推送给所有超管；若为字符串则将其视为推送对象 user_id；若为字符串列表同上
-
-`send_to_group`: 推送群组，规则同 `send_to`。
+Field | Type | Desc
+-- | -- | --
+`token` | `Optional[str]` | 令牌，当与设置的 `REPORT_TOKEN` 相同时才会推送消息，否则返回 403
+`title` | `Optional[str]` | 消息标题
+`content` | `str` | 消息内容，*必需字段*
+`send_from` | `Optional[ID]` | 推送消息的机器人 ID
+`send_to` | `Optional[ID \| List[ID]]` | 推送用户 `user_id`；<br/>若为 `null` 则推送给所有超管；
+`send_to_group` | `Optional[ID \| List[ID]]` | 推送群组 `group_id`
 
 ##### 配置
 
-`REPORT_TOKEN`: 令牌，若不设置则不会进行验证，即所有人都可以触发 webhook
-
-`REPORT_ROUTE`: 路由，若与其它路由冲突可以更换该值，default: `/report`
-
-`REPORT_TEMPLATE`: 消息模板，支持 `title` 与 `content` 两个字段，default: `{title}\n{content}`
+Field | Type | Desc | Default
+-- | -- | -- | --
+`REPORT_TOKEN` | `Optional[str]` | 令牌，若不设置则不会进行验证，所有人都可以触发 webhook |
+`REPORT_ROUTE` | `str` | 路由，若与其它路由冲突可以更换该值，| `/report`
+`REPORT_TEMPLATE` | `str` | 消息模板，支持 `title` 与 `content` 两个字段，| `{title}\n{content}`
 
 ### 使用例
 
