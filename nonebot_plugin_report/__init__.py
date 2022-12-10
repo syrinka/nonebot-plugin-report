@@ -29,13 +29,12 @@ ID = Union[str, int]
 class Report(BaseModel):
     token: Optional[str] = None
     title: Optional[str] = None
-    content: str = 'aa'
+    content: str
     send_from: Optional[ID] = None
     send_to: Optional[List[ID]] = None
     send_to_group: Optional[List[ID]] = None
 
     def _validate(cls, v):
-        print(type(v))
         if v is None or isinstance(v, list):
             return v
         else:
