@@ -2,11 +2,7 @@
 
 # nonebot-plugin-report
 
-Push message from anywhere to your bot through webhook.
-
 </div>
-
-----
 
 ## 功能
 
