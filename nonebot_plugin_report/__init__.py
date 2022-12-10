@@ -91,7 +91,7 @@ async def push(r: Report):
 @driver.on_startup
 async def startup():
     if not config.report_token and config.environment == 'prod':
-        logger.warning('You are in production environment without setting a token, everyone can access your webhook')
+        logger.warning('You are in production environment without setting a token')
 
     driver.server_app.mount('/', app)
     logger.info(f'Mounted to {config.report_route}')
