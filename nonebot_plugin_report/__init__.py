@@ -1,7 +1,7 @@
 from typing import Union, Optional, List
 
 from fastapi import FastAPI, status, HTTPException
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, Field, validator
 from nonebot import get_driver, get_bot
 from nonebot.log import logger
 from nonebot.drivers import ReverseDriver
@@ -27,7 +27,7 @@ if not isinstance(driver, ReverseDriver) or not isinstance(driver.server_app, Fa
 ID = Union[str, int]
 
 class Report(BaseModel):
-    token: Optional[str] = None
+    token: Optional[str] = Field(None, exclude=True)
     title: Optional[str] = None
     content: str
     send_from: Optional[ID] = None
@@ -85,10 +85,7 @@ async def push(r: Report):
         await bot.send_msg(group_id=gid, message=msg, message_type='group')
 
     logger.info(
-        'Report pushed:'
-        f' title={repr(r.title)},'
-        f' content={repr(r.content)},'
-        f' send_to={repr(r.send_to)}'
+        f'Report pushed: {r.json()}'
     )
 
 
