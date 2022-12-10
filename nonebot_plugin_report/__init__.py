@@ -1,7 +1,7 @@
 from typing import Union, Optional, List
 
 from fastapi import FastAPI, status, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 from nonebot import get_driver, get_bot
 from nonebot.log import logger
 from nonebot.drivers import ReverseDriver
@@ -24,12 +24,24 @@ if not isinstance(driver, ReverseDriver) or not isinstance(driver.server_app, Fa
     raise NotImplementedError('Only FastAPI reverse driver is supported.')
 
 
+ID = Union[str, int]
+
 class Report(BaseModel):
     token: Optional[str] = None
     title: Optional[str] = None
-    content: str
-    send_to: Optional[Union[str, List[str]]] = None
-    send_to_group: Optional[Union[str, List[str]]] = None
+    content: str = 'aa'
+    send_to: Optional[List[ID]] = None
+    send_to_group: Optional[List[ID]] = None
+
+    def _validate(cls, v):
+        print(type(v))
+        if v is None or isinstance(v, list):
+            return v
+        else:
+            return [v]
+
+    _v_st = validator('send_to', pre=True)(_validate)
+    _v_stg = validator('send_to_group', pre=True)(_validate)
 
 
 app = FastAPI()
