@@ -8,11 +8,11 @@ Push message from anywhere to your bot through webhook.
 
 ----
 
-### 功能
+## 功能
 
 该插件提供了一个位于 `/report` 的路由，通过此路由可直接向用户推送消息，实现消息推送机器人的功能
 
-### 使用
+## 使用
 
 请求体示例
 ```json
@@ -24,7 +24,7 @@ Push message from anywhere to your bot through webhook.
 }
 ```
 
-##### 字段
+### 字段
 
 Field | Type | Desc
 -- | -- | --
@@ -35,7 +35,7 @@ Field | Type | Desc
 `send_to` | `Optional[ID \| List[ID]]` | 推送用户 `user_id`；<br/>若为 `null` 则推送给所有超管；
 `send_to_group` | `Optional[ID \| List[ID]]` | 推送群组 `group_id`
 
-##### 配置
+### 配置
 
 Field | Type | Desc | Default
 -- | -- | -- | --
@@ -43,9 +43,9 @@ Field | Type | Desc | Default
 `REPORT_ROUTE` | `str` | 路由，若与其它路由冲突可以更换该值，| `/report`
 `REPORT_TEMPLATE` | `str` | 消息模板，支持 `title` 与 `content` 两个字段，| `{title}\n{content}`
 
-### 使用例
+## 使用例
 
-##### python
+### python
 
 ```bash
 import requests
@@ -53,7 +53,7 @@ data = {'token': '...', 'content': '...'}
 requests.post('http://127.0.0.1:8080/report', json=data)
 ```
 
-##### curl
+### curl
 
 ```bash
 curl -L -X POST \
