@@ -58,24 +58,21 @@ async def push(r: Report):
     )
     bot = get_bot()
 
-    if isinstance(r.send_to, str):
-        uids = [r.send_to]
-    elif isinstance(r.send_to, list):
-        uids = r.send_to
-    elif r.send_to_group:
-        uids = []
+    if r.send_to is None:
+        if r.send_to_group is None:
+            uids = config.superusers
+        else:
+            uids = []
     else:
-        uids = config.superusers
+        uids = r.send_to
 
     for uid in uids:
         await bot.send_msg(user_id=uid, message=msg, message_type='private')
 
-    if isinstance(r.send_to_group, str):
-        gids = [r.send_to_group]
-    elif isinstance(r.send_to_group, list):
-        gids = r.send_to_group
-    else:
+    if r.send_to_group is None:
         gids = []
+    else:
+        gids = r.send_to_group
 
     for gid in gids:
         await bot.send_msg(group_id=gid, message=msg, message_type='group')
