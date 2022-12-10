@@ -30,6 +30,7 @@ class Report(BaseModel):
     token: Optional[str] = None
     title: Optional[str] = None
     content: str = 'aa'
+    send_from: Optional[ID] = None
     send_to: Optional[List[ID]] = None
     send_to_group: Optional[List[ID]] = None
 
@@ -56,7 +57,14 @@ async def push(r: Report):
         title=r.title or '',
         content=r.content
     )
-    bot = get_bot()
+    try:
+        bot = get_bot(r.send_from)
+    except KeyError:
+        logger.warning(f'No bot with specific id: {r.send_from}')
+        return
+    except ValueError:
+        logger.warning('No bot available or driver not initialized')
+        return
 
     if r.send_to is None:
         if r.send_to_group is None:
