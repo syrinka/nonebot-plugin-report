@@ -67,7 +67,7 @@ async def push(r: Report):
         content=r.content
     )
     try:
-        bot = get_bot(r.send_from)
+        bot = get_bot(r.send_from or config.report_from)
     except KeyError:
         logger.warning(f'No bot with specific id: {r.send_from}')
         return

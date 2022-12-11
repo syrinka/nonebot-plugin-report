@@ -1,9 +1,12 @@
-from typing import Optional, List
+from typing import Optional, List, Union
 from pydantic import BaseSettings, Extra
 
 
+ID = Union[str, int]
+
 class Config(BaseSettings, extra=Extra.ignore):
     report_token: Optional[str] = None
+    report_from: Optional[ID] = None
     report_route: str = '/report'
     report_template: str = '{title}\n{content}'
     environment: str
