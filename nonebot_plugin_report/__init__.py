@@ -50,8 +50,8 @@ class Report(BaseModel):
         else:
             return [v]
 
-    _v_st = validator('send_to', pre=True)(_validate)
-    _v_stg = validator('send_to_group', pre=True)(_validate)
+    _v_st = validator('send_to', pre=True, allow_reuse=True)(_validate)
+    _v_stg = validator('send_to_group', pre=True, allow_reuse=True)(_validate)
 
 
 app = FastAPI()
