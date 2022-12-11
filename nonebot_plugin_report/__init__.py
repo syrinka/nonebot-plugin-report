@@ -1,7 +1,7 @@
 from typing import Union, Optional, List
 
 from fastapi import FastAPI, status, HTTPException
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, validator, root_validator
 from nonebot import get_driver, get_bot
 from nonebot.log import logger
 from nonebot.drivers import ReverseDriver
@@ -33,6 +33,16 @@ class Report(BaseModel):
     send_from: Optional[ID] = None
     send_to: Optional[List[ID]] = None
     send_to_group: Optional[List[ID]] = None
+
+    @root_validator(pre=True)
+    def _aliases(cls, v):
+        if v.get('send_from') is None:
+            v['send_from'] = v.get('from')
+        if v.get('send_to') is None:
+            v['send_to'] = v.get('to')
+        if v.get('send_to_group') is None:
+            v['send_to_group'] = v.get('to_group')
+        return v
 
     def _validate(cls, v):
         if v is None or isinstance(v, list):
