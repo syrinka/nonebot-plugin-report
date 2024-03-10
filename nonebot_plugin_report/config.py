@@ -1,10 +1,10 @@
 from typing import Optional, List, Union
-from pydantic import BaseSettings, Extra
+from pydantic import BaseModel, Extra
 
 
 ID = Union[str, int]
 
-class Config(BaseSettings, extra=Extra.ignore):
+class Config(BaseModel, extra=Extra.ignore):
     report_token: Optional[str] = None
     report_from: Optional[ID] = None
     report_route: str = '/report'

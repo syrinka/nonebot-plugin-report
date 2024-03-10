@@ -2,7 +2,7 @@ from typing import Union, Optional, List
 
 from fastapi import FastAPI, status, HTTPException
 from pydantic import BaseModel, Field, validator, root_validator
-from nonebot import get_driver, get_bot
+from nonebot import get_plugin_config, get_bot
 from nonebot.log import logger
 from nonebot.drivers import ReverseDriver
 from nonebot.plugin import PluginMetadata
@@ -17,8 +17,7 @@ __plugin_meta__ = PluginMetadata(
 )
 
 
-driver = get_driver()
-config = Config.parse_obj(driver.config)
+config = get_plugin_config(Config)
 
 if not isinstance(driver, ReverseDriver) or not isinstance(driver.server_app, FastAPI):
     raise NotImplementedError('Only FastAPI reverse driver is supported.')
