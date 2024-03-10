@@ -18,7 +18,9 @@ __plugin_meta__ = PluginMetadata(
 
 
 driver = get_driver()
-config = Config.parse_obj(driver.config)
+
+config_dict = dict(driver.config)
+config = Config.parse_obj(config_dict)
 
 if not isinstance(driver, ReverseDriver) or not isinstance(driver.server_app, FastAPI):
     raise NotImplementedError('Only FastAPI reverse driver is supported.')
