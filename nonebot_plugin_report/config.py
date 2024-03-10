@@ -1,5 +1,6 @@
 from typing import Optional, List, Union
-from pydantic import BaseSettings, Extra
+from pydantic import Extra
+from pydantic_settings import BaseSettings
 
 
 ID = Union[str, int]
