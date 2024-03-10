@@ -16,7 +16,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.8.0"
-nonebot2 = "^2.0.0rc2"
+nonebot2 = "^2.0.0"
 
 [tool.poetry.dev-dependencies]
 
